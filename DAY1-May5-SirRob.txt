@@ -647,7 +647,7 @@ conf t
    name 5272
 !
   voice register pool 1
-    id mac ____.____.____
+    id mac b262.cfe6.1eae
     number 1 dn 1
     dtmf-relay sip-notify
     username 5271 password 5271
