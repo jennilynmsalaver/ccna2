@@ -1,0 +1,110 @@
+config t
+D1:
+conf t
+vlan 3
+name accamsure.com
+exit 
+ Interface vlan 3
+ desc SVIFORCHEVRON
+ no shut
+ ip add 10.0.1.1 255.255.255.0
+exit
+ip dhcp excluded-add 10.0.1.1 10.0.1.20
+ip dhcp pool ACCAMSURE
+ network 10.0.1.0 255.255.255.0
+domain-name accamsure.com
+dns-server 8.8.8.8
+default-router 10.0.1.1
+end
+
+!@A1
+conf t 
+int e0/0
+switchport mode access
+switchport access vlan 3
+end
+sh vlan bri 
+
+!@P1
+conf t 
+in e0/0
+no ip add dhcp
+ip add dhcp
+no shut
+do bp
+---------
+
+
+for ACCENTUREBSP.COM
+C1:
+conf t
+vlan 4
+name ACCENTUREBSP.COM
+exit 
+ interface vlan 4
+ desc ACCENTUREBSP.COM
+ no shut
+ ip add 10.0.0.33 255.255.255.224
+exit
+ip dhcp excluded-add 10.0.0.33 10.0.0.35
+ip dhcp pool ACCENTUREBSP.COM
+ network 10.0.0.32 255.255.255.224
+domain-name ACCENTUREBSP.COM
+dns-server 8.8.8.8
+default-router 10.0.0.33
+end
+
+!@A2
+conf t 
+int e1/0
+switchport mode access
+switchport access vlan 4
+end
+sh vlan bri 
+
+!@P2
+conf t 
+int e1/0
+no ip add dhcp
+ip add dhcp
+no shut
+do bp
+
+-------
+ACCENTURE-SG.COM
+D1:
+conf t
+vlan 13
+name ACCENTURE-SG.COM
+exit 
+ Int vlan 13
+ desc ACCENTURE-SG.COM
+ no shut
+ ip add 10.0.4.1 255.255.252.0
+exit
+ip dhcp excluded-add 10.0.4.1 10.0.4.100
+ip dhcp pool ACCENTURE-SG.COM
+ network 10.0.4.0 255.255.252.0
+domain-name ACCENTURE-SG.COM
+dns-server 8.8.8.8
+default-router 10.0.4.1
+end
+
+!@C2
+conf t 
+int e1/0
+switchport mode access
+switchport access vlan 13
+end
+sh vlan bri 
+
+!@S2
+conf t 
+in e1/0
+no ip add dhcp
+ip add dhcp
+no shut
+do bp
+
+
+
